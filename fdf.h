@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:14:43 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/16 17:11:04 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/17 18:16:01 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,59 @@
 #  define BUFFER_SIZE 10
 # endif
 
-# define WIDTH	1920
-# define HEIGHT	1080
 
-typedef struct s_data
+# define WIDTH	1920
+# define HEIGHT	964
+
+# define CENTER_X 960
+# define CENTER_Y 482
+
+typedef struct s_mlx_img
 {
-	void	*img;
-	void	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}			t_img_data;
+    void	*mlx_img;
+    char	*addr;
+    int		bpp; /* bits per pixel */
+    int		line_len;
+    int		endian;
+}	t_mlx_img;
+
+typedef struct s_rect
+{
+	int	x;
+    int	y;
+    int width;
+    int height;
+    int color;
+}	t_rect;
 
 typedef struct s_mlx_data
 {
-	void	*mlx;
-	void	*win;
-	int		color;
+	void		*mlx;
+	void		*win;
+	t_mlx_img	img;
 }			t_mlx_data;
 
 typedef struct s_map_size
 {
 	int	width;
 	int height;
+	int center_x;
+	int center_y;
 }		t_map_size;
+
+
 
 //fdf.c
 int		main(int argc, char **argv);
+int	render_rect(t_mlx_img *img, t_rect rect);
+
+//parsing_tab.c
 void	ft_fill_tab(char *map, int **tab);
 int		**ft_pars_map(char *map, t_map_size *dimensions);
 
 //fdf_utils.c
-void	my_pixel_put(t_img_data *data, int x, int y, int color);
+void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
+
 int		**ft_malloc_tab(t_map_size *dimensions);
 int		**ft_free_tab(int **tab, int i);
 

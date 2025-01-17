@@ -6,14 +6,13 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:13:24 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/16 17:21:05 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/17 18:42:44 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
 
-int	handle_input(int keysym, t_mlx_data *data, t_img_data *img_data)
+int	handle_input(int keysym, t_mlx_data *data)
 {
-	(void)img_data;
 	if (keysym == XK_Escape)
 	{
 		mlx_destroy_window(data->mlx, data->win);
@@ -23,63 +22,8 @@ int	handle_input(int keysym, t_mlx_data *data, t_img_data *img_data)
 	}
 	return (0);
 }
-
-int	**ft_pars_map(char *map, t_map_size *dimensions)
-{
-	int fd;
-	char *line;
-	int **tab;
-	
-	dimensions->width = 0;
-	dimensions->height = 0;
-	fd = open(map, O_RDONLY);
-	line = get_next_line(fd);
-	while (line)
-	{
-		dimensions->height++;
-		if (ft_countword((const char *)line, ' ') >= dimensions->width)
-			dimensions->width = ft_countword((const char *)line, ' ');
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	tab = ft_malloc_tab(dimensions);
-	if(!tab)
-			return (NULL);
-	ft_fill_tab(map, tab);
-	return (tab);
-}
-
-void ft_fill_tab(char *map, int **tab)
-{
-	int		fd;
-	int 	i;
-	int		j;
-	char	*line;
-	char	**arg_split;
-	
-	j = 0;
-	fd = open(map, O_RDONLY);
-	line = get_next_line(fd);
-	while (line)
-	{
-		i = 0;
-		arg_split = ft_split(line, ' ');
-		free(line);
-		while (arg_split[i])
-		{
-			tab[j][i] = ft_atoi((const char *)arg_split[i]);
-			i++;
-		}
-		j++;
-		arg_split = ft_free(arg_split, i);
-		line = get_next_line(fd);
-	}
-	free(line);
-}
-
-int change_color(t_mlx_data *data)
+/*
+int	change_color(t_mlx_data *data)
 {
 	mlx_string_put(data->mlx, data->win, 150, 150, data->color, "color changing");
 	if (data->color == 0xFF0000)
@@ -90,36 +34,83 @@ int change_color(t_mlx_data *data)
 		data->color = 0xFF0000;
 	return (0);
 }
-
-int main(int argc, char **argv)
+*/
+int	render_rect(t_mlx_img *img, t_rect rect)
 {
-	(void)argv;
-	t_img_data	img;
+	int	i;
+	int	j;
+
+	i = rect.y;
+	while (i < rect.y + rect.height)
+	{
+		j = rect.x;
+		while (j < rect.x + rect.width)
+			my_pixel_put(img, j++, i, 0x00FF00);
+		++i;
+	}
+	return (0);
+}
+
+void	render_background(t_mlx_img *img, int color)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < HEIGHT)
+	{
+		j = 0;
+		while (j < WIDTH)
+			my_pixel_put(img, j++, i, color);
+		i++;
+	}
+}
+
+int	render(t_mlx_data *data)
+{
+	if (data->win == NULL)
+		return (1);
+	render_map(&data->img, 0xFFFFFF);
+	render_background(&data->img, 0x000000);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
+	return (0);
+}
+
+int render_map(t_map_size *dim, t_mlx_img *img, int color)
+{
+	int start_x;
+	int start_y;
+
+	dim->center_x = width / 2 + 1;
+	dim->center_y = height / 2 + 1;
+	start_x =  
+
+
+}
+int	main(int argc, char **argv)
+{
 	t_mlx_data	data;
-	//int			**map;
-	//t_map_size	dimensions;
+	int			**map;
+	t_map_size	dimensions;
 
 	if (argc != 2)
 		return (1);
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
 		return (1);
-	/*data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Hello world!");
+	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Hello world!");
 	if (data.win == NULL)
 	{
-		mlx_destroy_display(data.mlx);
 		free(data.mlx);
+		free(data.win);
 		return (1);
 	}
+	data.img.mlx_img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp, &data.img.line_len, &data.img.endian);
+	mlx_loop_hook(data.mlx, &render, &data);
 	mlx_key_hook(data.win, handle_input, &data);
 	map = ft_pars_map(argv[1], &dimensions);
 	if (!map)
-		return (1);*/
-	img.img = mlx_new_image(data.mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	/*mlx_put_image_to_window(data.mlx, data.win, img.img, &img.line_length, &img.endian);
-
-	mlx_loop_hook(data.mlx, change_color, &data); 
-	mlx_loop(data.mlx);*/
+		return (1);
+	mlx_loop(data.mlx);
 }

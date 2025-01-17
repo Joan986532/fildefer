@@ -6,13 +6,14 @@
 #    By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:14:05 by jnauroy           #+#    #+#              #
-#    Updated: 2025/01/16 12:01:50 by jnauroy          ###   ########.fr        #
+#    Updated: 2025/01/17 11:45:54 by jnauroy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 SOURCES = fdf.c \
+		  parsing_tab.c \
 		  fdf_utils.c \
 		  get_next_line.c \
 

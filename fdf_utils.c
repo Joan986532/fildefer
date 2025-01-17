@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 11:22:50 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/16 15:53:43 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/17 17:06:11 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -42,10 +42,11 @@ int	**ft_free_tab(int **tab, int i)
 	return (NULL);
 }
 
-void	my_pixel_put(t_img_data *data, int x, int y, int color)
+
+void	my_pixel_put(t_mlx_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
