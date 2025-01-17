@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:13:24 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/17 18:42:44 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/17 18:46:02 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -70,23 +70,11 @@ int	render(t_mlx_data *data)
 {
 	if (data->win == NULL)
 		return (1);
-	render_map(&data->img, 0xFFFFFF);
 	render_background(&data->img, 0x000000);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
 	return (0);
 }
 
-int render_map(t_map_size *dim, t_mlx_img *img, int color)
-{
-	int start_x;
-	int start_y;
-
-	dim->center_x = width / 2 + 1;
-	dim->center_y = height / 2 + 1;
-	start_x =  
-
-
-}
 int	main(int argc, char **argv)
 {
 	t_mlx_data	data;
