@@ -6,24 +6,24 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 11:22:50 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/17 17:06:11 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/20 16:34:34 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
 
-int	**ft_malloc_tab(t_map_size *dimensions)
+t_coor	**ft_malloc_tab(t_dim *dimensions)
 {
-	int **tab;
+	t_coor **tab;
 	int i;
 
 	i = 0;
 	tab = NULL;
-	tab = malloc(sizeof(int *) * dimensions->height);
+	tab = malloc(sizeof(t_coor **) * dimensions->height);
 	if (!tab)
 		return (0);
 	while (i < dimensions->width)
 	{
-		tab[i] = malloc(sizeof(int) * dimensions->width);
+		tab[i] = malloc(sizeof(t_coor *) * dimensions->width);
 		if (!tab[i])
 			return (ft_free_tab(tab, i));
 		i++;
@@ -31,7 +31,7 @@ int	**ft_malloc_tab(t_map_size *dimensions)
 	return (tab);
 }
 
-int	**ft_free_tab(int **tab, int i)
+t_coor	**ft_free_tab(t_coor **tab, int i)
 {
 	while (i >= 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:14:43 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/17 18:16:01 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/21 14:40:57 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@
 # include <math.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 20
 # endif
 
-
 # define WIDTH	1920
-# define HEIGHT	964
+# define HEIGHT	1080
 
 # define CENTER_X 960
-# define CENTER_Y 482
+# define CENTER_Y 480
 
 typedef struct s_mlx_img
 {
@@ -37,15 +36,6 @@ typedef struct s_mlx_img
     int		line_len;
     int		endian;
 }	t_mlx_img;
-
-typedef struct s_rect
-{
-	int	x;
-    int	y;
-    int width;
-    int height;
-    int color;
-}	t_rect;
 
 typedef struct s_mlx_data
 {
@@ -60,23 +50,28 @@ typedef struct s_map_size
 	int height;
 	int center_x;
 	int center_y;
-}		t_map_size;
+}		t_dim;
 
-
+typedef struct s_coordinates
+{
+	int x;
+	int y;
+	int z;
+}		t_coor;
 
 //fdf.c
 int		main(int argc, char **argv);
-int	render_rect(t_mlx_img *img, t_rect rect);
+void	ft_draw_grid(t_coor **grid, t_dim *area, t_mlx_img *img);
 
 //parsing_tab.c
-void	ft_fill_tab(char *map, int **tab);
-int		**ft_pars_map(char *map, t_map_size *dimensions);
+void	ft_fill_tab(char *map, t_coor **tab);
+t_coor	**ft_pars_map(char *map, t_dim *dimensions);
+void	ft_fill_tabstruct(char *line, int j, t_coor **tab);
 
 //fdf_utils.c
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
-
-int		**ft_malloc_tab(t_map_size *dimensions);
-int		**ft_free_tab(int **tab, int i);
+t_coor	**ft_malloc_tab(t_dim *dimensions);
+t_coor	**ft_free_tab(t_coor **tab, int i);
 
 //get_next_line.c
 char	*get_next_line(int fd);
@@ -84,19 +79,5 @@ char	*ft_write_right(char *buffer);
 char	*ft_write_left(char *string);
 int		ft_free_gnl(char *buffer, char *temp, char *string, char *sentence);
 char	*ft_read_buffer(int fd, char *buffer, char *string);
-
-/*void	ft_circle(t_img_data *img)
-{
-	int angle;
-
-	angle = 0;
-	while (angle < 10000)
-	{
-		my_pixel_put(img, 960 + (cos(angle) * 400), 500 + (sin(angle) * 400),
-				0x00FF00);
-		angle++;
-	}
-}*/
-
 
 #endif
