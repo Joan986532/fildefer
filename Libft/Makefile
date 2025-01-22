@@ -62,7 +62,7 @@ BONUS_SOURCES = ft_lstnew_bonus.c \
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 BONUS_OBJECTS = $(BONUS_SOURCES:.c=.o)
 
-CFLAGS += -Wall -Wextra -Werror
+CFLAGS += -Wall -Wextra -Werror -g
 AR = ar -rcs
 
 all: $(NAME)

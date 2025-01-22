@@ -6,7 +6,7 @@
 #    By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:14:05 by jnauroy           #+#    #+#              #
-#    Updated: 2025/01/17 11:45:54 by jnauroy          ###   ########.fr        #
+#    Updated: 2025/01/22 13:51:28 by jnauroy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SOURCES = fdf.c \
 		  parsing_tab.c \
 		  fdf_utils.c \
 		  get_next_line.c \
+		  draw_grid.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 

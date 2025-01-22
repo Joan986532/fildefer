@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:14:43 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/21 14:40:57 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/22 17:25:22 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@
 # define WIDTH	1920
 # define HEIGHT	1080
 
-# define CENTER_X 960
-# define CENTER_Y 480
-
+# define SCALE 50
 typedef struct s_mlx_img
 {
     void	*mlx_img;
@@ -72,6 +70,7 @@ void	ft_fill_tabstruct(char *line, int j, t_coor **tab);
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
 t_coor	**ft_malloc_tab(t_dim *dimensions);
 t_coor	**ft_free_tab(t_coor **tab, int i);
+void	**ft_free_split(char **split_tab, int j);
 
 //get_next_line.c
 char	*get_next_line(int fd);
@@ -79,5 +78,10 @@ char	*ft_write_right(char *buffer);
 char	*ft_write_left(char *string);
 int		ft_free_gnl(char *buffer, char *temp, char *string, char *sentence);
 char	*ft_read_buffer(int fd, char *buffer, char *string);
+
+//draw_grid.c
+void	ft_draw_grid(t_coor **grid, t_dim *area, t_mlx_img *img);
+void	ft_convert_coor(t_coor **grid, int i, int j, t_mlx_img *img);
+void	ft_bresenham(t_coor **grid, t_dim *area, t_mlx_img *img);
 
 #endif

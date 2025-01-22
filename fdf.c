@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:13:24 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/21 14:44:59 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/22 16:44:05 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -30,7 +30,7 @@ int	render(t_mlx_data *data)
 	return (0);
 }
 
-int ft_init_fdf(int argc, t_mlx_data *data)
+int	ft_init_fdf(int argc, t_mlx_data *data)
 {
 	if (argc != 2)
 		return (1);
@@ -47,40 +47,25 @@ int ft_init_fdf(int argc, t_mlx_data *data)
 	return (0);
 }
 
-void	ft_draw_grid(t_coor **grid, t_dim *area, t_mlx_img *img)
-{
-	int i;
-	int j;
-	
-		i = 0;
-	while (i < area->height)
-	{
-		j = 0;
-		while (j < area->width)
-		{
-			my_pixel_put(img, 600 + (grid[i][j].x - grid[i][j].y) * cos(M_PI/6) * 25, 300 + (grid[i][j].y + grid[i][j].x) * sin(M_PI/6) * 25, 0xFFFFFF);
-			j++;
-		}
-		i++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_mlx_data	data;
-	t_dim 		dimensions;
+	t_dim		dimensions;
 	t_coor		**grid;
-	
+
 	if (ft_init_fdf(argc, &data))
 		return (1);
 	data.img.mlx_img = mlx_new_image(data.mlx, 1920, 1080);
-	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp, &data.img.line_len, &data.img.endian);
+	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
+			&data.img.line_len, &data.img.endian);
 	//mlx_loop_hook(data.mlx, &render, &data);
 	mlx_key_hook(data.win, handle_input, &data);
 	grid = ft_pars_map(argv[1], &dimensions);
 	if (!grid)
 		return (1);
+	printf("test1\n");
 	ft_draw_grid(grid, &dimensions, &data.img);
+	ft_bresenham(grid, &dimensions, &data.img);
 	mlx_put_image_to_window(data.mlx, data.win, data.img.mlx_img, 0, 0);
 	mlx_loop(data.mlx);
 }
