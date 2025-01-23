@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:14:43 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/22 17:25:22 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/23 15:06:41 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@
 # define WIDTH	1920
 # define HEIGHT	1080
 
-# define SCALE 50
+# define SCALE 20
+# define START_X 800
+# define START_Y 200
+
 typedef struct s_mlx_img
 {
-    void	*mlx_img;
-    char	*addr;
-    int		bpp; /* bits per pixel */
-    int		line_len;
-    int		endian;
-}	t_mlx_img;
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}			t_mlx_img;
 
 typedef struct s_mlx_data
 {
@@ -45,17 +48,29 @@ typedef struct s_mlx_data
 typedef struct s_map_size
 {
 	int	width;
-	int height;
-	int center_x;
-	int center_y;
+	int	height;
+	int	center_x;
+	int	center_y;
 }		t_dim;
 
 typedef struct s_coordinates
 {
-	int x;
-	int y;
-	int z;
+	int	x;
+	int	y;
+	int	z;
 }		t_coor;
+
+typedef struct s_grid_coor
+{
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+}		t_point;
 
 //fdf.c
 int		main(int argc, char **argv);
@@ -80,8 +95,9 @@ int		ft_free_gnl(char *buffer, char *temp, char *string, char *sentence);
 char	*ft_read_buffer(int fd, char *buffer, char *string);
 
 //draw_grid.c
+void	ft_init_besenham(t_point *point, int *error);
+void	ft_algo_besenham(t_point *point, t_mlx_img *img);
+void	ft_draw_height(t_coor **grid, t_dim *area, t_mlx_img *img);
+void	ft_draw_width(t_coor **grid, t_dim *area, t_mlx_img *img);
 void	ft_draw_grid(t_coor **grid, t_dim *area, t_mlx_img *img);
-void	ft_convert_coor(t_coor **grid, int i, int j, t_mlx_img *img);
-void	ft_bresenham(t_coor **grid, t_dim *area, t_mlx_img *img);
-
 #endif

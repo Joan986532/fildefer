@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:13:24 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/22 16:44:05 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/23 14:56:30 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -65,7 +65,6 @@ int	main(int argc, char **argv)
 		return (1);
 	printf("test1\n");
 	ft_draw_grid(grid, &dimensions, &data.img);
-	ft_bresenham(grid, &dimensions, &data.img);
 	mlx_put_image_to_window(data.mlx, data.win, data.img.mlx_img, 0, 0);
 	mlx_loop(data.mlx);
 }
