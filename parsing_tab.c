@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:43:25 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/22 14:32:41 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:41:53 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -16,7 +16,7 @@ t_coor	**ft_pars_map(char *map, t_dim *dimensions)
 	int		fd;
 	char	*line;
 	t_coor	**tab;
-	
+
 	dimensions->width = 0;
 	dimensions->height = 0;
 	fd = open(map, O_RDONLY);
@@ -36,11 +36,11 @@ t_coor	**ft_pars_map(char *map, t_dim *dimensions)
 	tab = ft_malloc_tab(dimensions);
 	if (!tab)
 		return (NULL);
-	ft_fill_tab(map, tab);
+	ft_fill_tab(map, tab, dimensions);
 	return (tab);
 }
 
-void	ft_fill_tabstruct(char *line, int j, t_coor **tab)
+void	ft_fill_tabstruct(char *line, int j, t_coor **tab, t_dim *dimensions)
 {
 	int		i;
 	char	**arg_split;
@@ -52,8 +52,8 @@ void	ft_fill_tabstruct(char *line, int j, t_coor **tab)
 	free(line);
 	while (arg_split[i])
 	{
-		tab[j][i].x = i;
-		tab[j][i].y = j;
+		tab[j][i].x = i - dimensions->center_x;
+		tab[j][i].y = j - dimensions->center_y;
 		tab[j][i].z = ft_atoi((const char *)arg_split[i]);
 		printf("%d, %d, %d\n", tab[j][i].x, tab[j][i].y, tab[j][i].z);
 		i++;
@@ -61,7 +61,7 @@ void	ft_fill_tabstruct(char *line, int j, t_coor **tab)
 	ft_free_split(arg_split, i);
 }
 
-void	ft_fill_tab(char *map, t_coor **tab)
+void	ft_fill_tab(char *map, t_coor **tab, t_dim *dimensions)
 {
 	int		fd;
 	int		j;
@@ -72,7 +72,7 @@ void	ft_fill_tab(char *map, t_coor **tab)
 	line = get_next_line(fd);
 	while (line)
 	{
-		ft_fill_tabstruct(line, j, tab);
+		ft_fill_tabstruct(line, j, tab, dimensions);
 		line = get_next_line(fd);
 		j++;
 	}

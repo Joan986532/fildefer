@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:14:43 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/23 15:06:41 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:42:18 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define WIDTH	1920
 # define HEIGHT	1080
 
-# define SCALE 20
+# define SCALE 30
 # define START_X 800
 # define START_Y 200
 
@@ -70,6 +70,8 @@ typedef struct s_grid_coor
 	int	dy;
 	int	sx;
 	int	sy;
+	int	error;
+	int	error2;
 }		t_point;
 
 //fdf.c
@@ -77,9 +79,9 @@ int		main(int argc, char **argv);
 void	ft_draw_grid(t_coor **grid, t_dim *area, t_mlx_img *img);
 
 //parsing_tab.c
-void	ft_fill_tab(char *map, t_coor **tab);
+void	ft_fill_tab(char *map, t_coor **tab, t_dim *dimensions);
 t_coor	**ft_pars_map(char *map, t_dim *dimensions);
-void	ft_fill_tabstruct(char *line, int j, t_coor **tab);
+void	ft_fill_tabstruct(char *line, int j, t_coor **tab, t_dim *dimensions);
 
 //fdf_utils.c
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
@@ -95,7 +97,6 @@ int		ft_free_gnl(char *buffer, char *temp, char *string, char *sentence);
 char	*ft_read_buffer(int fd, char *buffer, char *string);
 
 //draw_grid.c
-void	ft_init_besenham(t_point *point, int *error);
 void	ft_algo_besenham(t_point *point, t_mlx_img *img);
 void	ft_draw_height(t_coor **grid, t_dim *area, t_mlx_img *img);
 void	ft_draw_width(t_coor **grid, t_dim *area, t_mlx_img *img);
