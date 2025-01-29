@@ -6,15 +6,15 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 11:22:50 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/21 18:22:32 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/29 11:49:06 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
 
 t_coor	**ft_malloc_tab(t_dim *dimensions)
 {
-	t_coor **tab;
-	int i;
+	t_coor	**tab;
+	int		i;
 
 	i = 0;
 	tab = NULL;
@@ -56,11 +56,13 @@ t_coor	**ft_free_tab(t_coor **tab, int i)
 	return (NULL);
 }
 
-
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int*)dst = color;
+	if (x < WIDTH && x >= 0 && y < HEIGHT && y >= 0)
+	{
+		dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+		*(unsigned int *)dst = color;
+	}
 }

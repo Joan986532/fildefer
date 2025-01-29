@@ -6,17 +6,18 @@
 #    By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:14:05 by jnauroy           #+#    #+#              #
-#    Updated: 2025/01/22 13:51:28 by jnauroy          ###   ########.fr        #
+#    Updated: 2025/01/29 11:51:11 by jnauroy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 SOURCES = fdf.c \
-		  parsing_tab.c \
+		  pars_n_grid.c \
 		  fdf_utils.c \
 		  get_next_line.c \
 		  draw_grid.c \
+		  get_zoom_scale.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
