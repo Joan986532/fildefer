@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:14:43 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/29 18:03:38 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/31 17:29:15 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
 # include "Libft/libft.h"
+# include <X11/X.h>
 # include <math.h>
 
 # ifndef BUFFER_SIZE
@@ -73,7 +74,9 @@ typedef struct s_zoom
 {
 	float	max_y;
 	float	min_y;
-	int		zoom;
+	float	y_mid;
+	float	x_mid;
+	float	zoom;
 }			t_zoom;
 
 typedef struct s_mlx_data
@@ -88,6 +91,7 @@ typedef struct s_mlx_data
 
 //fdf.c
 int		main(int argc, char **argv);
+void	ft_destroy(t_mlx_data *data);
 
 //pars_n_grid.c
 int		ft_fill_tab(char *map, t_coor **tab, t_dim *dimensions);
@@ -123,5 +127,10 @@ void	ft_zoom(t_coor **copy, t_mlx_data *data);
 //get_zoom_scale.c
 float	ft_get_height(t_coor **grid, int i, int j, int flag);
 void	ft_get_zoom(t_coor **grid, t_dim *area, t_zoom *z);
+
+//keys_and_buttons.c
+int		ft_key_press(int keysym, t_mlx_data *data);
+int		close_window(void *data);
+void	ft_destroy(t_mlx_data *data);
 
 #endif

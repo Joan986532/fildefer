@@ -6,16 +6,21 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:43:25 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/29 17:39:52 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/01/31 13:28:13 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
 
-void	ft_count_tab(int fd, t_dim *dimensions)
+int	ft_count_tab(int fd, t_dim *dimensions)
 {
 	char	*line;
 
 	line = get_next_line(fd);
+	if (!line)
+	{
+		free(line);
+		return (1);
+	}
 	while (line)
 	{
 		dimensions->height++;
@@ -27,6 +32,7 @@ void	ft_count_tab(int fd, t_dim *dimensions)
 	free(line);
 	dimensions->center_x = dimensions->width / 2 + 1;
 	dimensions->center_y = dimensions->height / 2 + 1;
+	return (0);
 }
 
 int	ft_pars_map(t_mlx_data *data, char *map)
@@ -36,15 +42,14 @@ int	ft_pars_map(t_mlx_data *data, char *map)
 	data->area.width = 0;
 	data->area.height = 0;
 	fd = open(map, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	ft_count_tab(fd, &data->area);
+	if (ft_count_tab(fd, &data->area))
+		ft_destroy(data);
 	close(fd);
 	data->grid = ft_malloc_tab(&data->area);
 	if (!data->grid)
-		return (1);
+		ft_destroy(data);
 	if (ft_fill_tab(map, data->grid, &data->area))
-		return (1);
+		ft_destroy(data);
 	ft_get_zoom(data->grid, &data->area, &data->zoom);
 	return (0);
 }
@@ -58,7 +63,6 @@ int	ft_fill_tabstruct(char *line, int j, t_coor **tab, t_dim *dimensions)
 	arg_split = ft_split(line, ' ');
 	if (!arg_split)
 		return (1);
-	free(line);
 	while (arg_split[i])
 	{
 		tab[j][i].x = i - dimensions->center_x;
@@ -88,6 +92,8 @@ int	ft_fill_tab(char *map, t_coor **tab, t_dim *dimensions)
 	if (fd < 0)
 		return (1);
 	line = get_next_line(fd);
+	if (!line)
+		return (1);
 	while (line)
 	{
 		if (ft_fill_tabstruct(line, j, tab, dimensions))
@@ -95,6 +101,7 @@ int	ft_fill_tab(char *map, t_coor **tab, t_dim *dimensions)
 			free(line);
 			return (1);
 		}
+		free(line);
 		line = get_next_line(fd);
 		j++;
 	}
