@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:49:10 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/31 19:09:26 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/02/01 16:21:02 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -81,8 +81,8 @@ void	ft_draw_width(t_coor **grid, t_dim *area, t_mlx_img *img)
 	int		j;
 	t_point	point;
 
-	 = 0;
-	hile (i < area->height)
+	i = 0;
+	while (i < area->height)
 	{
 		j = 0;
 		while (j < area->width - 1)
@@ -113,10 +113,8 @@ void	ft_draw_map(t_coor **grid, t_dim *area, t_mlx_img *img, t_zoom *z)
 		while (j < area->width)
 		{
 			x = grid[i][j].x;
-			grid[i][j].x = z->x_mid + (sqrtf(2) / 2)
-				* (grid[i][j].x - grid[i][j].y) * z->zoom;
-			grid[i][j].y = z->y_mid + (sqrtf(2 / 3) * grid[i][j].z)
-				- (1 / sqrtf(6)) * (x + grid[i][j].y) * z->zoom;
+			grid[i][j].x = z->x_mid + (x - grid[i][j].y) * cos(M_PI / 6) * z->zoom;
+			grid[i][j].y = z->y_mid + ((x + grid[i][j].y) * sin(M_PI / 6) - grid[i][j].z) * z->zoom;
 			my_pixel_put(img, grid[i][j].x, grid[i][j].y, 0xFF00FF);
 			j++;
 		}
