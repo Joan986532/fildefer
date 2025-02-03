@@ -6,13 +6,14 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:13:24 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/31 17:49:16 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/02/03 14:43:56 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
 
 int	ft_init_fdf(char *fdf, int argc, t_mlx_data *data)
 {
+	(void)fdf;
 	if (argc != 2)
 		return (1);
 	if (!ft_strnstr(fdf, ".fdf", ft_strlen(fdf)))

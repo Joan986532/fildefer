@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 10:14:43 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/02/01 15:09:24 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/02/03 16:13:16 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@
 # define MID_X 960
 # define MID_Y 540
 
-# define FIG_X 768
-# define FIG_Y 432
-
 typedef struct s_mlx_img
 {
 	void	*mlx_img;
@@ -46,10 +43,10 @@ typedef struct s_mlx_img
 
 typedef struct s_map_size
 {
-	int	width;
-	int	height;
-	int	center_x;
-	int	center_y;
+	int		width;
+	int		height;
+	float	center_x;
+	float	center_y;
 }		t_dim;
 
 typedef struct s_coordinates

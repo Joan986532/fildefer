@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:43:25 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/01/31 13:28:13 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:25:28 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -30,8 +30,8 @@ int	ft_count_tab(int fd, t_dim *dimensions)
 		line = get_next_line(fd);
 	}
 	free(line);
-	dimensions->center_x = dimensions->width / 2 + 1;
-	dimensions->center_y = dimensions->height / 2 + 1;
+	dimensions->center_x = dimensions->width / 2;
+	dimensions->center_y = dimensions->height / 2;
 	return (0);
 }
 

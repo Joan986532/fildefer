@@ -6,14 +6,14 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:04:35 by jnauroy           #+#    #+#             */
-/*   Updated: 2024/10/25 11:42:46 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/02/03 12:54:09 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	nb;
-	int	sign;
+	int		i;
+	long	nb;
+	int		sign;
 
 	i = 0;
 	nb = 0;
@@ -30,6 +30,8 @@ int	ft_atoi(const char *nptr)
 	{
 		nb *= 10;
 		nb += nptr[i++] - 48;
+		if (nb > 2147483647 || nb < -2147483648)
+			return (0);
 	}
 	return (sign * nb);
 }

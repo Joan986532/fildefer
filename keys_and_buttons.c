@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:24:16 by jnauroy           #+#    #+#             */
-/*   Updated: 2025/02/01 14:35:19 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/02/03 14:45:22 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -20,7 +20,7 @@ void	ft_destroy(t_mlx_data *data)
 	if (data->grid)
 		ft_free_tab(data->grid, data->area.height - 1);
 	free(data->mlx);
-	exit(0);
+	exit(1);
 }
 
 int	close_window(void *data)

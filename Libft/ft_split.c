@@ -6,7 +6,7 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:09:54 by jnauroy           #+#    #+#             */
-/*   Updated: 2024/10/25 11:31:02 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:47:48 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -30,7 +30,7 @@ int	ft_countword(const char *s, char c)
 	return (count);
 }
 
- char	**ft_split_check(const char *s, char c)
+char	**ft_split_check(const char *s, char c)
 {
 	char	**split_tab;
 
@@ -43,7 +43,7 @@ int	ft_countword(const char *s, char c)
 	return (split_tab);
 }
 
- char	*ft_write(const char *s, int *i, char c)
+char	*ft_write(const char *s, int *i, char c)
 {
 	int		k;
 	int		u;
